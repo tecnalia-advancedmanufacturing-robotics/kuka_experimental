@@ -132,6 +132,7 @@ private:
   hardware_state_command_interfaces::DigitalOutputStateInterface digital_output_state_interface_;
   hardware_state_command_interfaces::DigitalOutputCommandInterface digital_output_command_interface_;
   bool first_time_ = true;
+  bool waiting_for_communication=true;
 
 public:
   KukaHardwareInterface();
