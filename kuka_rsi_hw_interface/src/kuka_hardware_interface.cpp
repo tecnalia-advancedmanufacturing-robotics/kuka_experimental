@@ -80,37 +80,66 @@ void KukaHardwareInterface::read(const ros::Time& time, const ros::Duration& per
   }
   // in_buffer_.resize(1024);
   // recv is a blocking action if the buffer is empty
-  if (server_->recv(in_buffer_) <= 0)
+  if (server_->recv(in_buffer_) > 0)
   {
-    ROS_FATAL("Failed to read state from robot!");
-  }
-
-  rsi_state_ = RSIState(in_buffer_);
-  for (std::size_t i = 0; i < n_dof_; ++i)
-  {
-    joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
-  }
-  for (std::size_t i = 0; i < digital_input_state_.size(); ++i)
-  {
-    digital_input_state_[i] = rsi_state_.digital_inputs[i] == 1 ?
-                                  hardware_state_command_interfaces::DigitalIOStateHandle::State::HIGH :
-                                  hardware_state_command_interfaces::DigitalIOStateHandle::State::LOW;
-  }
-  ipoc_ = rsi_state_.ipoc;
-  if (rt_rsi_kuka_to_pc_pub_->trylock())
-  {
-    rt_rsi_kuka_to_pc_pub_->msg_.time = time;
-    rt_rsi_kuka_to_pc_pub_->msg_.period = period;
+    rsi_state_ = RSIState(in_buffer_);
+    if(waiting_for_communication)
+    {
+      //changing connection time out more than 4 to give time to rsi
+      server_->set_timeout(10);
+      waiting_for_communication=false;
+      for (std::size_t i = 0; i < n_dof_; ++i)
+      {
+        joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
+        joint_position_command_[i] = joint_position_[i];
+        rsi_initial_joint_positions_[i] = rsi_state_.initial_positions[i];
+      }
+    }
     for (std::size_t i = 0; i < n_dof_; ++i)
     {
-      rt_rsi_kuka_to_pc_pub_->msg_.AIPos_joint_actual_position[i] = rsi_state_.positions[i];
-      rt_rsi_kuka_to_pc_pub_->msg_.ASPos_joint_initial_position[i] = rsi_state_.initial_positions[i];
-      rt_rsi_kuka_to_pc_pub_->msg_.RIst_cartesian_actual_position[i] = rsi_state_.cart_position[i];
-      rt_rsi_kuka_to_pc_pub_->msg_.RSol_cartesian_initial_position[i] = rsi_state_.initial_cart_position[i];
+      joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
     }
+    for (std::size_t i = 0; i < digital_input_state_.size(); ++i)
+    {
+      digital_input_state_[i] = rsi_state_.digital_inputs[i] == 1 ?
+                                    hardware_state_command_interfaces::DigitalIOStateHandle::State::HIGH :
+                                    hardware_state_command_interfaces::DigitalIOStateHandle::State::LOW;
+    }
+    ipoc_ = rsi_state_.ipoc;
+    if (rt_rsi_kuka_to_pc_pub_->trylock())
+    {
+      rt_rsi_kuka_to_pc_pub_->msg_.time = time;
+      rt_rsi_kuka_to_pc_pub_->msg_.period = period;
+      for (std::size_t i = 0; i < n_dof_; ++i)
+      {
+        rt_rsi_kuka_to_pc_pub_->msg_.AIPos_joint_actual_position[i] = rsi_state_.positions[i];
+        rt_rsi_kuka_to_pc_pub_->msg_.ASPos_joint_initial_position[i] = rsi_state_.initial_positions[i];
+        rt_rsi_kuka_to_pc_pub_->msg_.RIst_cartesian_actual_position[i] = rsi_state_.cart_position[i];
+        rt_rsi_kuka_to_pc_pub_->msg_.RSol_cartesian_initial_position[i] = rsi_state_.initial_cart_position[i];
+      }
 
-    rt_rsi_kuka_to_pc_pub_->msg_.ipoc = rsi_state_.ipoc;
-    rt_rsi_kuka_to_pc_pub_->unlockAndPublish();
+      rt_rsi_kuka_to_pc_pub_->msg_.ipoc = rsi_state_.ipoc;
+      rt_rsi_kuka_to_pc_pub_->unlockAndPublish();
+    }
+  }else
+  {
+    if(waiting_for_communication)
+    {
+    
+      for (std::size_t i = 0; i < n_dof_; ++i)
+      {
+        joint_position_[i] = std::numeric_limits<double>::quiet_NaN();
+      }
+      for (std::size_t i = 0; i < digital_input_state_.size(); ++i)
+      {
+        digital_input_state_[i] = hardware_state_command_interfaces::DigitalIOStateHandle::State::UNDEFINED;
+      }
+    }else
+    {
+      ROS_FATAL("RSI connection is interupted. Waiting for connection activated.");
+      waiting_for_communication=true;
+      server_->set_timeout(4);
+    }
   }
 }
 bool KukaHardwareInterface::read()
@@ -145,6 +174,10 @@ bool KukaHardwareInterface::read()
 
 void KukaHardwareInterface::write(const ros::Time& time, const ros::Duration& period)
 {
+  if(waiting_for_communication)
+  {
+    return;
+  }
   // out_buffer_.resize(1024);
 
   for (std::size_t i = 0; i < n_dof_; ++i)
@@ -189,28 +222,41 @@ void KukaHardwareInterface::start()
   server_.reset(new UDPServer(local_host_, local_port_));
 
   ROS_INFO_STREAM_NAMED("kuka_hardware_interface", "Waiting for robot!");
+  server_->set_timeout(4);
 
   int bytes = server_->recv(in_buffer_);
-
-  // Drop empty <rob> frame with RSI <= 2.3
-  if (bytes < 100)
+  if(bytes>0)
   {
-    bytes = server_->recv(in_buffer_);
-  }
 
-  rsi_state_ = RSIState(in_buffer_);
-  for (std::size_t i = 0; i < n_dof_; ++i)
-  {
-    joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
-    joint_position_command_[i] = joint_position_[i];
-    rsi_initial_joint_positions_[i] = rsi_state_.initial_positions[i];
+    // Drop empty <rob> frame with RSI <= 2.3
+    if (bytes < 100)
+    {
+      bytes = server_->recv(in_buffer_);
+    }
+
+    rsi_state_ = RSIState(in_buffer_);
+    for (std::size_t i = 0; i < n_dof_; ++i)
+    {
+      joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
+      joint_position_command_[i] = joint_position_[i];
+      rsi_initial_joint_positions_[i] = rsi_state_.initial_positions[i];
+    }
+    ipoc_ = rsi_state_.ipoc;
+    out_buffer_ = RSICommand(rsi_joint_position_corrections_, ipoc_).xml_doc;
+    server_->send(out_buffer_);
+    // Set receive timeout to 1 second
+    
+    ROS_INFO_STREAM_NAMED("kuka_hardware_interface", "Got connection from robot");
   }
-  ipoc_ = rsi_state_.ipoc;
-  out_buffer_ = RSICommand(rsi_joint_position_corrections_, ipoc_).xml_doc;
-  server_->send(out_buffer_);
-  // Set receive timeout to 1 second
-  // server_->set_timeout(1000);
-  ROS_INFO_STREAM_NAMED("kuka_hardware_interface", "Got connection from robot");
+  else{
+     ROS_INFO_STREAM_NAMED("kuka_hardware_interface", "Passed but waiting for connection from robot");
+    for (std::size_t i = 0; i < n_dof_; ++i)
+    {
+      joint_position_[i] = std::numeric_limits<double>::quiet_NaN();DEG2RAD * rsi_state_.positions[i];
+      joint_position_command_[i] = std::numeric_limits<double>::quiet_NaN();
+      rsi_initial_joint_positions_[i] =  std::numeric_limits<double>::quiet_NaN();
+    }
+  }
 }
 
 void KukaHardwareInterface::configure()
