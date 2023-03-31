@@ -1,0 +1,9 @@
+<launch>
+  <group ns="load_kl4000standard__">
+    <include file="$(find kuka_kl4000_support)/launch/load_kl4000standard.launch"/>
+  </group>
+
+  <group ns="test_kl4000standard__">
+    <include file="$(find kuka_kl4000_support)/launch/test_kl4000standard.launch"/>
+  </group>
+</launch>
