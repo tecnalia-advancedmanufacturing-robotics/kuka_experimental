@@ -58,7 +58,7 @@
     <joint name="${prefix}link_1-flange" type="fixed">
       <parent link="${prefix}link_1"/>
       <child link="${prefix}flange"/>
-      <origin xyz="0 0 0.7" rpy="0 0 0"/>
+      <origin xyz="0 0 0.69" rpy="0 0 0"/>
     </joint>
 
     <!-- ROS base_link to KUKA $ROBROOT coordinate system transform -->
