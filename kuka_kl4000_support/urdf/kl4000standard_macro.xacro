@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:macro name="kuka_kl4000standard" params="prefix">
+    <!-- links -->
+    <link name="${prefix}base_link">
+      <inertial>
+        <origin xyz="-0.027804 0.00039112 0.14035" rpy="0 0 0"/>
+        <mass value="1572.9"/>
+        <inertia ixx="89.282" ixy="-0.47721" ixz="0.85562" iyy="107.51" iyz="0.0067576" izz="172.02"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kl4000_support/meshes/kl4000standard/visual/base_link.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kl4000_support/meshes/kl4000standard/collision/base_link.stl"/>
+        </geometry>
+      </collision>
+    </link>
+    <link name="${prefix}link_1">
+      <inertial>
+        <origin xyz="-0.036811 -0.024697 0.56577" rpy="0 0 0"/>
+        <mass value="1385.5"/>
+        <inertia ixx="90.873" ixy="33.809" ixz="17.159" iyy="147.03" iyz="0.063634" izz="168.19"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kl4000_support/meshes/kl4000standard/visual/link_1.dae"/>
+        </geometry>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kl4000_support/meshes/kl4000standard/collision/link_1.stl"/>
+        </geometry>
+      </collision>
+    </link>
+
+    <!-- This frame corresponds to the $TOOL coordinate system in KUKA KRC controllers. -->
+    <link name="${prefix}flange"/>
+
+    <!-- joints -->
+    <joint name="${prefix}joint_l1" type="prismatic">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link_1"/>
+      <axis xyz="1 0 0"/>
+      <limit lower="-10" upper="0" effort="0" velocity="2.35"/>
+    </joint>
+
+
+    <joint name="${prefix}link_1-flange" type="fixed">
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}flange"/>
+      <origin xyz="0 0 0.69" rpy="0 0 0"/>
+    </joint>
+
+    <!-- ROS base_link to KUKA $ROBROOT coordinate system transform -->
+    <link name="${prefix}base"/>
+    <joint name="${prefix}base_link-base" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}base"/>
+    </joint>
+
+    <!-- This frame corresponds to the $TOOL coordinate system in KUKA KRC controllers -->
+    <link name="${prefix}tool0"/>
+    <joint name="${prefix}flange-tool0" type="fixed">
+      <parent link="${prefix}flange"/>
+      <child link="${prefix}tool0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- rename 'Link1' to 'link_1', maintain bw-compatibility -->
+    <link name="${prefix}Link1"/>
+    <joint name="${prefix}Link1-link_1" type="fixed">
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}Link1"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>
+  </xacro:macro>
+</robot>
