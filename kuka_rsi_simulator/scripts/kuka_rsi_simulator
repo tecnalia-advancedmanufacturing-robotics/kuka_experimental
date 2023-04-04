@@ -10,21 +10,23 @@ import errno
 import rospy
 from std_msgs.msg import String
 
+
 def create_rsi_xml_rob(act_joint_pos, setpoint_joint_pos, timeout_count, ipoc):
     q = act_joint_pos
     qd = setpoint_joint_pos
-    root = ET.Element('Rob', {'TYPE':'KUKA'})
-    ET.SubElement(root, 'RIst', {'X':'0.0', 'Y':'0.0', 'Z':'0.0',
-                                 'A':'0.0', 'B':'0.0', 'C':'0.0'})
-    ET.SubElement(root, 'RSol', {'X':'0.0', 'Y':'0.0', 'Z':'0.0',
-                                 'A':'0.0', 'B':'0.0', 'C':'0.0'})
-    ET.SubElement(root, 'AIPos', {'A1':str(q[0]), 'A2':str(q[1]), 'A3':str(q[2]),
-                                  'A4':str(q[3]), 'A5':str(q[4]), 'A6':str(q[5])})
-    ET.SubElement(root, 'ASPos', {'A1':str(qd[0]), 'A2':str(qd[1]), 'A3':str(qd[2]),
-                                  'A4':str(qd[3]), 'A5':str(qd[4]), 'A6':str(qd[5])})
-    ET.SubElement(root, 'Delay', {'D':str(timeout_count)})
-    ET.SubElement(root, 'IPOC').text=str(ipoc)
+    root = ET.Element('Rob', {'TYPE': 'KUKA'})
+    ET.SubElement(root, 'RIst', {'X': '0.0', 'Y': '0.0', 'Z': '0.0',
+                                 'A': '0.0', 'B': '0.0', 'C': '0.0'})
+    ET.SubElement(root, 'RSol', {'X': '0.0', 'Y': '0.0', 'Z': '0.0',
+                                 'A': '0.0', 'B': '0.0', 'C': '0.0'})
+    ET.SubElement(root, 'AIPos', {'A1': str(q[0]), 'A2': str(q[1]), 'A3': str(q[2]),
+                                  'A4': str(q[3]), 'A5': str(q[4]), 'A6': str(q[5])})
+    ET.SubElement(root, 'ASPos', {'A1': str(qd[0]), 'A2': str(qd[1]), 'A3': str(qd[2]),
+                                  'A4': str(qd[3]), 'A5': str(qd[4]), 'A6': str(qd[5])})
+    ET.SubElement(root, 'Delay', {'D': str(timeout_count)})
+    ET.SubElement(root, 'IPOC').text = str(ipoc)
     return ET.tostring(root)
+
 
 def parse_rsi_xml_sen(data):
     root = ET.fromstring(data)
@@ -33,6 +35,7 @@ def parse_rsi_xml_sen(data):
                                          AK['A4'], AK['A5'], AK['A6']]).astype(np.float64)
     IPOC = root.find('IPOC').text
     return desired_joint_correction, int(IPOC)
+
 
 node_name = 'kuka_rsi_simulation'
 rsi_act_pub = rospy.Publisher(node_name + '/rsi/state', String, queue_size=1)
@@ -85,10 +88,9 @@ if __name__ == '__main__':
             act_joint_pos = cmd_joint_pos + des_joint_correction_absolute
             ipoc += 1
             time.sleep(cycle_time / 2)
-        except socket.timeout, msg:
+        except socket.timeout:
             rospy.logwarn('{}: Socket timed out'.format(node_name))
             timeout_count += 1
-        except socket.error, e:
+        except socket.error as e:
             if e.errno != errno.EINTR:
                 raise
-
