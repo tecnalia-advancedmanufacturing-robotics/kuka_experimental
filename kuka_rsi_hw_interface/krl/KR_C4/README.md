@@ -122,7 +122,7 @@ The **kuka_rsi_hardware_interface** is now waiting for the robot controller to c
 
 1. On the teach pad, enter mode **T1** for testing purposes.
 2. Navigate to `KRC:\R1\Program` and select `ros_rsi.src`.
-3. Press and hold an enabling switch and the run/play-button. The robot will first move to the start position.
+3. Press and hold an enabling switch and the run/play-button. The robot will first move to the start position. :speech_balloon: Noticed that the initial position was not the same as the initial position with the simulated robot (joint 5 was rotated by 90 degrees). Maybe I built the urdf wrong.
    * A message like **Programmed path reached (BCO)** will be shown at the teach pad.
 4. Press and hold again. The teach pad will post a warning **!!! Attention - Sensor correction goes active !!!**.
 5. Confirm the warning and press and hold the buttons again. This time the terminal where **kuka_rsi_hardware_interface** is running should output **Got connection from robot**. The RSI connection is now up and running. :speech_balloon: Here I got the error `Object Ethernet_1 returns error RSITimeout`.
