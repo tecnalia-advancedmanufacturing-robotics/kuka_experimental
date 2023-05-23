@@ -5,6 +5,7 @@
     <rosparam file="$(find kuka_rsi_hw_interface)/test/test_params_sim.yaml" command="load" if="$(arg sim)"/>
     <rosparam file="$(find kuka_rsi_hw_interface)/test/test_params.yaml" command="load" unless="$(arg sim)"/>
 
+    <include file="$(find aerobotics_workcell)/launch/load_aerobotics_workcell.launch"/>
     <!-- Start node without FT sensor -->
     <node name="kuka_hardware_interface" pkg="kuka_rsi_hw_interface"
       type="kuka_hardware_interface_node" respawn="false"

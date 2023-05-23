@@ -8,7 +8,7 @@ Windows runs behind the SmartHMI on the teach pad. Make sure that the **Windows 
 
 1. Log in as **Expert** or **Administrator** on the teach pad and navigate to **Network configuration** (**Start-up > Network configuration > Activate advanced configuration**).
 2. There should already be an interface checked out as the **Windows interface**. For example:
-   * **IP**: 192.168.250.20
+   * **IP**: 192.168.3.50 / 192.168.4.50
    * **Subnet mask**: 255.255.255.0
    * **Default gateway**: 192.168.250.20
    * **Windows interface checkbox** should be checked.
@@ -112,4 +112,3 @@ $ rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller
 Choose **controller manager ns** and **controller** and you should be able to move each robot joint.
 
 * Note that T1-mode limits the robot movement velocity and is intended for testing purposes.
-
