@@ -104,6 +104,7 @@ bool KukaHardwareInterface::read(const ros::Time time, const ros::Duration perio
   }
 
   rsi_state_ = RSIState(in_buffer_);
+  ROS_INFO_STREAM_THROTTLE(1.0, "Parsed: " << rsi_state_);
   for (std::size_t i = 0; i < n_dof_; ++i)
   {
     joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
@@ -143,7 +144,12 @@ void KukaHardwareInterface::start()
     bytes = server_->recv(in_buffer_);
   }
 
+  ROS_INFO_STREAM("Recieved " << bytes << " bytes");
+  ROS_INFO_STREAM("Recieved: " << in_buffer_);
+
   rsi_state_ = RSIState(in_buffer_);
+
+  ROS_INFO_STREAM("Parsed: " << rsi_state_);
   for (std::size_t i = 0; i < n_dof_; ++i)
   {
     joint_position_[i] = DEG2RAD * rsi_state_.positions[i];

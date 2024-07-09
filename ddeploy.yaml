@@ -1,0 +1,6 @@
+project_name: kuka_experimental
+image_name: converging-docker-dev.artifact.tecnalia.com/kuka_experimental:ford
+ros_distro: noetic
+project_sources:
+  - .
+cmd: $ roslaunch kuka_rsi_hw_interface test_hardware_interface.launch sim:=false

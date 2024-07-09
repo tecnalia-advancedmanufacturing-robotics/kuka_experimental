@@ -124,6 +124,38 @@ RSIState::RSIState(std::string xml_doc) :
   ipoc = std::stoull(ipoc_el->FirstChild()->Value());
 }
 
+// define stream operator
+std::ostream& operator<<(std::ostream& os, const RSIState& state)
+{
+  os << "RSIState: " << std::endl;
+  os << "  Positions: ";
+  for (std::size_t i = 0; i < state.positions.size(); ++i)
+  {
+    os << state.positions[i] << " ";
+  }
+  os << std::endl;
+  os << "  Initial Positions: ";
+  for (std::size_t i = 0; i < state.initial_positions.size(); ++i)
+  {
+    os << state.initial_positions[i] << " ";
+  }
+  os << std::endl;
+  os << "  Cart Position: ";
+  for (std::size_t i = 0; i < state.cart_position.size(); ++i)
+  {
+    os << state.cart_position[i] << " ";
+  }
+  os << std::endl;
+  os << "  Initial Cart Position: ";
+  for (std::size_t i = 0; i < state.initial_cart_position.size(); ++i)
+  {
+    os << state.initial_cart_position[i] << " ";
+  }
+  os << std::endl;
+  os << "  IPOC: " << state.ipoc << std::endl;
+  return os;
+}
+
 } // namespace kuka_rsi_hw_interface
 
 #endif
