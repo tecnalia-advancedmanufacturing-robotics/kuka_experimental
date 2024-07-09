@@ -5,9 +5,9 @@ find_package(catkin REQUIRED)
 
 catkin_package()
 
-install(
+catkin_install_python(
   PROGRAMS scripts/kuka_rsi_simulator
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts)
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
