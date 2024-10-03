@@ -158,11 +158,11 @@
       <limit lower="${radians(-30)}" upper="${radians(160)}" effort="0" velocity="${radians(101)}"/>
     </joint>
     <joint name="${prefix}joint_a3" type="revolute">
-      <origin xyz="0 -0.168 1.35" rpy="0 0 0"/>
+      <origin xyz="1.35 -0.168 0" rpy="0 0 0"/>
       <parent link="${prefix}link_2"/>
       <child link="${prefix}link_3"/>
       <axis xyz="0 1 0"/>
-      <limit lower="${radians(-210)}" upper="${radians(65)}" effort="0" velocity="${radians(107)}"/>
+      <limit lower="${radians(-120)}" upper="${radians(155)}" effort="0" velocity="${radians(107)}"/>
     </joint>
     <joint name="${prefix}joint_a4" type="revolute">
       <origin xyz="1.16 0.168 -0.041" rpy="0 0 0"/>

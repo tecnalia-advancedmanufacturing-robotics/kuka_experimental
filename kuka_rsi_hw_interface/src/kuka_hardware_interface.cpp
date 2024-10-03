@@ -119,10 +119,18 @@ bool KukaHardwareInterface::write(const ros::Time time, const ros::Duration peri
 
   for (std::size_t i = 0; i < n_dof_; ++i)
   {
+    // ROS_WARN("---");
+    // ROS_WARN_STREAM("rsi_initial_joint_positions_[" << i << "] = " << rsi_initial_joint_positions_[i]);
+    // ROS_WARN_STREAM("RAD2DEG * joint_position_command_[" << i << "] = " << RAD2DEG * joint_position_command_[i]);
     rsi_joint_position_corrections_[i] = (RAD2DEG * joint_position_command_[i]) - rsi_initial_joint_positions_[i];
+    // double limit = 0.05;
+    // if (rsi_joint_position_corrections_[i]>limit) rsi_joint_position_corrections_[i]=limit;
+    // if (rsi_joint_position_corrections_[i]<-limit) rsi_joint_position_corrections_[i]=-limit;
+    // ROS_WARN_STREAM("rsi_joint_position_corrections_[" << i << "] = " << rsi_joint_position_corrections_[i]);
   }
 
   out_buffer_ = RSICommand(rsi_joint_position_corrections_, ipoc_).xml_doc;
+  // ROS_WARN_STREAM("out_buffer_ = " <<out_buffer_);
   server_->send(out_buffer_);
 
   return true;

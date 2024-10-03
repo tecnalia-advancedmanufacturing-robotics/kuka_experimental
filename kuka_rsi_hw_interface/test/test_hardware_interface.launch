@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
     <arg name="sim" default="true" />
+    <arg name="robot_ip" default="192.168.2.238" />
+    <arg name="robot_port" default="49152" />
 
-    <rosparam file="$(find kuka_rsi_hw_interface)/test/test_params_sim.yaml" command="load" if="$(arg sim)"/>
-    <rosparam file="$(find kuka_rsi_hw_interface)/test/test_params.yaml" command="load" unless="$(arg sim)"/>
+    <param name="rsi/listen_address" value='$(eval "127.0.0.1" if sim else robot_ip)' />
+    <param name="rsi/listen_port" value="$(arg robot_port)" />
+
+
+    <!-- <param name="robot_description" command="$(find xacro)/xacro '$(find kuka_kr150_support)/urdf/kr150_2.xacro'"/> -->
+
+    <rosparam file="$(find aerobotics_workcell)/config/hardware_controllers.yaml" command="load"/>
+    <rosparam file="$(find aerobotics_workcell)/config/controller_joint_names.yaml" command="load"/>
+
+    <node name="rqt_joint_trajectory_controller" pkg="rqt_joint_trajectory_controller"  type="rqt_joint_trajectory_controller"/>
 
     <include file="$(find aerobotics_workcell)/launch/load_aerobotics_workcell.launch"/>
     <!-- Start node without FT sensor -->

@@ -15,7 +15,7 @@ Windows runs behind the SmartHMI on the teach pad. Make sure that the **Windows 
 3. Minimize the SmartHMI (**Start-up > Service > Minimize HMI**).
 4. Run **RSI-Network** from the Windows Start menu (**All Programs > RSI-Network**).
 5. Check that the **Network - Kuka User Interface** show the Windows interface with the specified IP address.
-6. Add a new IP address on another subnet (e.g. 192.168.1.20) for the **RSI interface**.
+6. Add a new IP address on another subnet (e.g. 192.168.2.237) for the **RSI interface**.
    * Select the entry **New** under **RSI Ethernet** in the tree structure and press **Edit**.
    * Enter the IP address and confirm with **OK**.
    * Close **RSI-Network** and maximize the SmartHMI.
@@ -34,7 +34,7 @@ The files included in this folder specifies the data transferred via RSI. Some o
 #### ros_rsi_ethernet.xml
 
 1. Edit the `IP_NUMBER` tag so that it corresponds to the IP address (192.168.1.xx) previously added for your PC.
-2. Keep the `PORT` tag as it is (49152) or change it if you want to use another port.
+2. Keep the `PORT` tag as it is (49152) or change it if you want to use another port. // 59152
 
 Note that the `rsi/listen_address` and `rsi/listen_port` parameters of the `kuka_rsi_hw_interface` must correspond to the `IP_NUMBER`and `PORT` set in these KRL files.
 
