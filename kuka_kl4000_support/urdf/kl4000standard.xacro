@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <robot name="kuka_kl4000" xmlns:xacro="http://wiki.ros.org/xacro">
+  <xacro:arg name="prefix" default=""/>
   <xacro:include filename="$(find kuka_kl4000_support)/urdf/kl4000standard_macro.xacro"/>
-  <xacro:kuka_kl4000standard prefix=""/>
+  <xacro:kuka_kl4000standard prefix="$(arg prefix)"/>
 </robot>

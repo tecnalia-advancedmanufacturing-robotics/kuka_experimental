@@ -46,7 +46,7 @@
     <link name="${prefix}flange"/>
 
     <!-- joints -->
-    <joint name="${prefix}joint_l1" type="prismatic">
+    <joint name="${prefix}joint_e1" type="prismatic">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <parent link="${prefix}base_link"/>
       <child link="${prefix}link_1"/>
