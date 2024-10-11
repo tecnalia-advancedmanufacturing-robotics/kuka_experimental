@@ -12,7 +12,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://kuka_kl4000_support/meshes/kl4000standard/visual/base_link.dae"/>
+          <mesh filename="package://kuka_kl4000_support/meshes/kl4000standard/visual/base_link_aernnova.dae"/>
         </geometry>
       </visual>
       <collision>

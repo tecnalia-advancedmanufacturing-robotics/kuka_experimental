@@ -69,7 +69,7 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/visual/link_3.dae"/>
+          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/visual/link_3_aernnova.dae"/>
         </geometry>
         <material name="">
           <color rgba="0.75294 0.75294 0.75294 1"/>
@@ -78,7 +78,7 @@
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/collision/link_3.stl"/>
+          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/collision/link_3_aernnova.stl"/>
         </geometry>
       </collision>
     </link>
@@ -129,13 +129,13 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/visual/link_6.dae"/>
+          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/visual/link_6_aernnova.dae"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/collision/link_6.stl"/>
+          <mesh filename="package://kuka_kr180_support/meshes/kr180r3500_ultra_k/collision/link_6_aernnova.stl"/>
         </geometry>
       </collision>
     </link>
