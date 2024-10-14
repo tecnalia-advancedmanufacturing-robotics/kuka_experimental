@@ -155,7 +155,7 @@
       <parent link="${prefix}link_1"/>
       <child link="${prefix}link_2"/>
       <axis xyz="0 1 0"/>
-      <limit lower="${radians(-30)}" upper="${radians(160)}" effort="0" velocity="${radians(101)}"/>
+      <limit lower="${radians(-120)}" upper="${radians(70)}" effort="0" velocity="${radians(101)}"/>
     </joint>
     <joint name="${prefix}joint_a3" type="revolute">
       <origin xyz="1.35 -0.168 0" rpy="0 0 0"/>
