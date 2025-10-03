@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSIObjects xsi:noNamespaceSchemaLocation="/Roboter/Config/System/Common/Schemes/RSIContext.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<RSIObjects xsi:noNamespaceSchemaLocation="/Roboter/Config/System/Common/Schemes/RSIContext.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <RSIObject ObjType="AXISCORR" ObjTypeID="33" ObjID="AXISCORR1">
     <Inputs>
       <Input InIdx="1" OutObjID="ETHERNET1" OutIdx="1" />
@@ -34,18 +35,18 @@
   </RSIObject>
   <RSIObject ObjType="AXISCORRMON" ObjTypeID="82" ObjID="AXISCORRMON1">
     <Parameters>
-      <Parameter Name="MaxA1" ParamID="1" ParamValue="90.0" />
-      <Parameter Name="MaxA2" ParamID="2" ParamValue="90.0" />
-      <Parameter Name="MaxA3" ParamID="3" ParamValue="90.0" />
-      <Parameter Name="MaxA4" ParamID="4" ParamValue="90.0" />
-      <Parameter Name="MaxA5" ParamID="5" ParamValue="90.0" />
-      <Parameter Name="MaxA6" ParamID="6" ParamValue="90.0" />
-      <Parameter Name="MaxE1" ParamID="7" ParamValue="6.0" />
-      <Parameter Name="MaxE2" ParamID="8" ParamValue="6.0" />
-      <Parameter Name="MaxE3" ParamID="9" ParamValue="6.0" />
-      <Parameter Name="MaxE4" ParamID="10" ParamValue="6.0" />
-      <Parameter Name="MaxE5" ParamID="11" ParamValue="6.0" />
-      <Parameter Name="MaxE6" ParamID="12" ParamValue="6.0" />
+      <Parameter Name="MaxA1" ParamID="1" ParamValue="900.0" />
+      <Parameter Name="MaxA2" ParamID="2" ParamValue="900.0" />
+      <Parameter Name="MaxA3" ParamID="3" ParamValue="900.0" />
+      <Parameter Name="MaxA4" ParamID="4" ParamValue="900.0" />
+      <Parameter Name="MaxA5" ParamID="5" ParamValue="900.0" />
+      <Parameter Name="MaxA6" ParamID="6" ParamValue="900.0" />
+      <Parameter Name="MaxE1" ParamID="7" ParamValue="60.0" />
+      <Parameter Name="MaxE2" ParamID="8" ParamValue="60.0" />
+      <Parameter Name="MaxE3" ParamID="9" ParamValue="60.0" />
+      <Parameter Name="MaxE4" ParamID="10" ParamValue="60.0" />
+      <Parameter Name="MaxE5" ParamID="11" ParamValue="60.0" />
+      <Parameter Name="MaxE6" ParamID="12" ParamValue="60.0" />
     </Parameters>
   </RSIObject>
 </RSIObjects>

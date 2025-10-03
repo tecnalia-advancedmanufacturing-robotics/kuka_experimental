@@ -21,11 +21,10 @@ Windows runs behind the SmartHMI on the teach pad. Make sure that the **Windows 
    * Close **RSI-Network** and maximize the SmartHMI.
 7. Reboot the controller with a cold restart (**Shutdown > Check *Force cold start* and *Reload files* > Reboot control PC**).
 8. After reboot, minimize the SmartHMI (**Start-up > Service > Minimize HMI**).
-9. Run **cmd.exe** and ping the IP of the PC you want to communicate with by typing **ping 192.168.250.10** (you will need to plug in a keyboard).
-
+9. Setup your computer with an IP address on the same subnet as the **RSI interface** on the controller. You can also have it on both subnets.
+10. Run **cmd.exe** and ping the IP of the PC you want to communicate with by typing **ping 192.168.250.10** (you will need to plug in a keyboard).
 If your **PC** has an IP address on the same subnet as the **Windows interface** on the controller, the controller should receive answers from the PC:
-
-* If this is not the case, add another IP address to the current PC connection (e.g. 192.168.1.xx) on the same subnet as the **RSI** interface.
+THE **RSI** interface will not be able to ping the PC, as it is a virtual interface, but the **PC** should be able to ping the **RSI** interface.
 
 ## 2. KRL Files
 
@@ -33,8 +32,8 @@ The files included in this folder specifies the data transferred via RSI. Some o
 
 #### ros_rsi_ethernet.xml
 
-1. Edit the `IP_NUMBER` tag so that it corresponds to the IP address (192.168.1.xx) previously added for your PC.
-2. Keep the `PORT` tag as it is (49152) or change it if you want to use another port. // 59152
+1. Edit the `IP_NUMBER` tag so that it corresponds to the IP address on the **RSI Subnet** (192.168.1.xx) previously added for your PC
+2. Keep the `PORT` tag as it is (49152) or change it if you want to use another port.
 
 Note that the `rsi/listen_address` and `rsi/listen_port` parameters of the `kuka_rsi_hw_interface` must correspond to the `IP_NUMBER`and `PORT` set in these KRL files.
 
@@ -65,7 +64,7 @@ The files **ros_rsi.rsi** and **ros_rsi.rsi.diagram** should not be edited. All 
 2. Plug it into the teach pad or controller.
 3. Log in as **Expert** or **Administrator**.
 4. Copy the `ros_rsi.src` file to `KRC:\R1\Program`.
-5. Copy the rest of the files to `C:\KRC\ROBOTER\Config\User\Common\SensorInterface`.
+5. Copy the rest of the files to `C:\KRC\ROBOTER\Config\User\Common\SensorInterface`. (You can select all and paste)
 
 * for RSI 3.x : Copy ros_rsi.rsi.xml  to the above folder
 * for RSI 4.x : Copy ros_rsi.rsix  to the above folder
