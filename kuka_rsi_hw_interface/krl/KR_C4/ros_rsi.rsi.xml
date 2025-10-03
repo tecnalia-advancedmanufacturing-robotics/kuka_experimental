@@ -10,18 +10,18 @@
       <Input InIdx="6" OutObjID="ETHERNET1" OutIdx="6" />
     </Inputs>
     <Parameters>
-      <Parameter Name="LowerLimA1" ParamID="1" ParamValue="-90.0" />
-      <Parameter Name="LowerLimA2" ParamID="2" ParamValue="-90.0" />
-      <Parameter Name="LowerLimA3" ParamID="3" ParamValue="-90.0" />
-      <Parameter Name="LowerLimA4" ParamID="4" ParamValue="-90.0" />
-      <Parameter Name="LowerLimA5" ParamID="5" ParamValue="-90.0" />
-      <Parameter Name="LowerLimA6" ParamID="6" ParamValue="-90.0" />
-      <Parameter Name="UpperLimA1" ParamID="13" ParamValue="90.0" />
-      <Parameter Name="UpperLimA2" ParamID="14" ParamValue="90.0" />
-      <Parameter Name="UpperLimA3" ParamID="15" ParamValue="90.0" />
-      <Parameter Name="UpperLimA4" ParamID="16" ParamValue="90.0" />
-      <Parameter Name="UpperLimA5" ParamID="17" ParamValue="90.0" />
-      <Parameter Name="UpperLimA6" ParamID="18" ParamValue="90.0" />
+      <Parameter Name="LowerLimA1" ParamID="1" ParamValue="-900.0" />
+      <Parameter Name="LowerLimA2" ParamID="2" ParamValue="-900.0" />
+      <Parameter Name="LowerLimA3" ParamID="3" ParamValue="-900.0" />
+      <Parameter Name="LowerLimA4" ParamID="4" ParamValue="-900.0" />
+      <Parameter Name="LowerLimA5" ParamID="5" ParamValue="-900.0" />
+      <Parameter Name="LowerLimA6" ParamID="6" ParamValue="-900.0" />
+      <Parameter Name="UpperLimA1" ParamID="13" ParamValue="900.0" />
+      <Parameter Name="UpperLimA2" ParamID="14" ParamValue="900.0" />
+      <Parameter Name="UpperLimA3" ParamID="15" ParamValue="900.0" />
+      <Parameter Name="UpperLimA4" ParamID="16" ParamValue="900.0" />
+      <Parameter Name="UpperLimA5" ParamID="17" ParamValue="900.0" />
+      <Parameter Name="UpperLimA6" ParamID="18" ParamValue="900.0" />
     </Parameters>
   </RSIObject>
   <RSIObject ObjType="ETHERNET" ObjTypeID="64" ObjID="ETHERNET1">

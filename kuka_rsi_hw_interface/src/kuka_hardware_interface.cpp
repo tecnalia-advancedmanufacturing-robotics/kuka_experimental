@@ -104,9 +104,11 @@ bool KukaHardwareInterface::read(const ros::Time time, const ros::Duration perio
   }
 
   rsi_state_ = RSIState(in_buffer_);
+  // ROS_WARN("---");
   for (std::size_t i = 0; i < n_dof_; ++i)
   {
     joint_position_[i] = DEG2RAD * rsi_state_.positions[i];
+    // ROS_WARN_STREAM("rsi_state_.positions[" << i << "] = " << rsi_state_.positions[i]);
   }
   ipoc_ = rsi_state_.ipoc;
 
