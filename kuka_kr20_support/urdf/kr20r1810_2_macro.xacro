@@ -28,7 +28,7 @@
         <joint name="${prefix}joint_a1" type="revolute">
             <parent link="${prefix}base_link" />
             <child link="${prefix}link_1" />
-            <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.2799999713897705" />
+            <origin rpy="0.0 -0.0 0.0" xyz="0.0 0.0 0.28" />
             <axis xyz="0 0 -1"/>
             <limit lower="${radians(-185)}" upper="${radians(185)}" effort="0" velocity="${radians(200)}"/>
         </joint>
@@ -47,7 +47,7 @@
         <joint name="${prefix}joint_a2" type="revolute">
             <parent link="${prefix}link_1" />
             <child link="${prefix}link_2" />
-            <origin rpy="-0.0 1.570796251296997 0.0" xyz="0.15999996662139893 0.0 0.2399999499320984" />
+            <origin xyz="0.16 0.0 0.24" rpy="0.0 -0.0 0.0" />
             <axis xyz="0 1 0"/>
             <limit lower="${radians(-185)}" upper="${radians(65)}" effort="0" velocity="${radians(175)}"/>
         </joint>
@@ -66,7 +66,7 @@
         <joint name="${prefix}joint_a3" type="revolute">
             <parent link="${prefix}link_2" />
             <child link="${prefix}link_3" />
-            <origin rpy="-0.0 -1.570796251296997 0.0" xyz="-7.087962217156019e-09 0.0 0.7799994945526123" />
+            <origin xyz="0.78 0.0 0.0" rpy="0.0 0.0 0.0" />
             <axis xyz="0 1 0"/>
             <limit lower="${radians(-138)}" upper="${radians(175)}" effort="0" velocity="${radians(190)}"/>
         </joint>
@@ -85,7 +85,7 @@
         <joint name="${prefix}joint_a4" type="revolute">
             <parent link="${prefix}link_3" />
             <child link="${prefix}link_4" />
-            <origin rpy="0.0 -0.0 0.0" xyz="0.29999905824661255 0.0 0.15000009536743164" />
+            <origin rpy="0.0 -0.0 0.0" xyz="0.3 0.0 0.15" />
             <axis xyz="-1 0 0"/>
             <limit lower="${radians(-350)}" upper="${radians(350)}" effort="0" velocity="${radians(430)}"/>
         </joint>
@@ -104,7 +104,7 @@
         <joint name="${prefix}joint_a5" type="revolute">
             <parent link="${prefix}link_4" />
             <child link="${prefix}link_5" />
-            <origin rpy="0.0 -0.0 0.0" xyz="0.5599991083145142 0.0 2.980231954552437e-07" />
+            <origin rpy="0.0 -0.0 0.0" xyz="0.56 0.0 0.0" />
             <axis xyz="0 1 0"/>
             <limit lower="${radians(-130)}" upper="${radians(130)}" effort="0" velocity="${radians(430)}"/>
         </joint>
@@ -123,7 +123,7 @@
         <joint name="${prefix}joint_a6" type="revolute">
             <parent link="${prefix}link_5" />
             <child link="${prefix}link_6" />
-            <origin rpy="0.0 -1.6940658945086007e-21 0.0" xyz="0.1529996395111084 0.0 1.7881390590446244e-07" />
+            <origin rpy="0.0 0.0 0.0" xyz="0.153 0.0 0.0" />
             <axis xyz="-1 0 0"/>
             <limit lower="${radians(-350)}" upper="${radians(350)}" effort="0" velocity="${radians(630)}"/>
         </joint>

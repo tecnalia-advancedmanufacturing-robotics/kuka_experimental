@@ -6,3 +6,5 @@ do
     echo "${CMD}"
     eval "${CMD}"
 done
+
+# rosrun moveit_setup_assistant collisions_updater --srdf $(rospack find kr20r1810_moveit_config)/config/kuka_kr20.srdf --urdf $(rospack find kuka_kr20_support)/urdf/kr20r1810_2.xacro   --default --always --trials 100000 --verbose
